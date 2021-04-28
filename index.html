@@ -1,0 +1,148 @@
+<!--
+
+  ____          _____               _ _           _       
+ |  _ \        |  __ \             (_) |         | |      
+ | |_) |_   _  | |__) |_ _ _ __ _____| |__  _   _| |_ ___ 
+ |  _ <| | | | |  ___/ _` | '__|_  / | '_ \| | | | __/ _ \
+ | |_) | |_| | | |  | (_| | |   / /| | |_) | |_| | ||  __/
+ |____/ \__, | |_|   \__,_|_|  /___|_|_.__/ \__, |\__\___|
+         __/ |                               __/ |        
+        |___/                               |___/         
+    
+____________________________________
+/ Si necesitas ayuda, contáctame en \
+\ https://parzibyte.me               /
+ ------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+Creado por Parzibyte (https://parzibyte.me).
+------------------------------------------------------------------------------------------------
+            | IMPORTANTE |
+Si vas a borrar este encabezado, considera:
+Seguirme: https://parzibyte.me/blog/sigueme/
+Y compartir mi blog con tus amigos
+También tengo canal de YouTube: https://www.youtube.com/channel/UCroP4BTWjfM0CkGB6AFUoBg?sub_confirmation=1
+Twitter: https://twitter.com/parzibyte
+Facebook: https://facebook.com/parzibyte.fanpage
+Instagram: https://instagram.com/parzibyte
+Hacer una donación vía PayPal: https://paypal.me/LuisCabreraBenito
+------------------------------------------------------------------------------------------------
+-->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solucionador de fracciones en línea - By Parzibyte</title>
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.1/css/bulma.min.css">
+    <script src="./Fraccion.js"></script>
+    <script src="./vue.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://parzibyte.me/blog">
+                <img alt=""
+                    src="https://raw.githubusercontent.com/parzibyte/control-estacionamiento/main/frontend/src/assets/parzibyte.png" />
+            </a>
+            <button class="navbar-burger is-warning button" aria-label="menu" aria-expanded="false"
+                data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a target="_blank" rel="noreferrer" href="https://parzibyte.me/l/fW8zGd"
+                            class="button is-primary">
+                            <strong>Soporte y ayuda</strong>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            const boton = document.querySelector(".navbar-burger");
+            const menu = document.querySelector(".navbar-menu");
+            boton.onclick = () => {
+                menu.classList.toggle("is-active");
+                boton.classList.toggle("is-active");
+            };
+        });
+    </script>
+    <section class="section" id="app">
+        <div class="columns">
+            <div class="notification is-link">
+                Con este solucionador de fracciones y quebrados en línea puedes resolver la suma, multiplicación,
+                división y resta. Solo escribe ambas fracciones y aparecerá el resultado simplificado, además de su
+                versión mixta
+                <br>
+                <a href="https://parzibyte.me/blog">By Parzibyte</a>
+            </div>
+
+        </div>
+        <div class="columns">
+            <div class="column has-text-centered">
+                <div class="columns is-vcentered">
+                    <div class="column is-one-quarter" style="border-right: 1px solid #f5f5f5;">
+                        <h2 class="is-size-2">Fracción 1</h2>
+                        <br>
+                        <input @change="resolverOperacion()" @keyup="resolverOperacion()"
+                            @keyup.enter="enfocarDenominador()" v-model.number="fraccion1.numerador" class="input"
+                            type="number" placeholder="Numerador">
+                        <hr>
+                        <input @change="resolverOperacion()" @keyup="resolverOperacion()" ref="denominador"
+                            @keyup.enter="enfocarSegundoNumerador()" v-model.number="fraccion1.denominador"
+                            class="input" type="number" placeholder="Denominador">
+                    </div>
+
+                    <div class="column is-one-quarter" style="border-right: 1px solid #f5f5f5;">
+                        <div class="select">
+                            <select @change="resolverOperacion()" v-model="operacion">
+                                <option value="suma">Suma</option>
+                                <option value="resta">Resta</option>
+                                <option value="multiplicacion">Multiplicación</option>
+                                <option value="division">División</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="column is-one-quarter" style="border-right: 1px solid #f5f5f5;">
+                        <h2 class="is-size-2">Fracción 2</h2>
+                        <br>
+                        <input @change="resolverOperacion()" @keyup="resolverOperacion()" ref="segundoNumerador"
+                            @keyup.enter="enfocarSegundoDenominador()" v-model.number="fraccion2.numerador"
+                            class="input" type="number" placeholder="Numerador">
+                        <hr>
+                        <input @change="resolverOperacion()" @keyup="resolverOperacion()" ref="segundoDenominador"
+                            v-model.number="fraccion2.denominador" class="input" type="number"
+                            placeholder="Denominador">
+                    </div>
+                    <div class="column is-one-quarter" style="border-right: 1px solid #f5f5f5;">
+                        <h2 class="is-size-2">Resultado</h2>
+                        <br>
+                        <input readonly v-model="resultado.numerador" class="input" type="number"
+                            placeholder="Numerador">
+                        <hr>
+                        <input readonly model="resultado.denominador" class="input" type="number"
+                            placeholder="Denominador">
+                        <br>
+                        <strong>Mixto: </strong>{{resultadoMixto}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="./app.js"></script>
+</body>
+
+</html>
