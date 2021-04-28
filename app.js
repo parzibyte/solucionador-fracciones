@@ -69,7 +69,6 @@ new Vue({
             return true;
         },
         resolverOperacion() {
-            console.log("Resolver");
             if (!this.validarFraccion(this.fraccion1) || !this.validarFraccion(this.fraccion2)) {
                 return;
             }
@@ -78,19 +77,19 @@ new Vue({
             let resultado = null;
             switch (this.operacion) {
                 case "suma":
-                    resultado = f1.suma(f2).simplifica();
+                    resultado = f1.suma(f2);
                     break;
                 case "resta":
-                    resultado = f1.resta(f2).simplifica();
+                    resultado = f1.resta(f2);
                     break;
                 case "multiplicacion":
-                    resultado = f1.producto(f2).simplifica();
+                    resultado = f1.producto(f2);
                     break;
                 case "division":
-                    resultado = f1.cociente(f2).simplifica();
+                    resultado = f1.cociente(f2);
                     break;
             }
-            this.resultado = resultado;
+            this.resultado = resultado.simplifica();
             this.resultadoMixto = FraccionMixta.desdeImpropia(resultado);
         }
     }
