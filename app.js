@@ -90,7 +90,7 @@ new Vue({
                     break;
             }
             this.resultado = resultado.simplifica();
-            this.resultadoMixto = FraccionMixta.desdeImpropia(resultado);
+            this.resultadoMixto = FraccionMixta.desdeImpropia(this.resultado);
         }
     }
 });
